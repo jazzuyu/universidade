@@ -1,0 +1,20 @@
+{
+  "name": "universidade-web",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Gestão acadêmica com Express e SQL Server",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "node --test",
+    "db:setup": "node scripts/setup-db.js",
+    "db:check": "node scripts/check-db.js"
+  },
+  "engines": { "node": ">=22" },
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "msnodesqlv8": "^6.2.1",
+    "mssql": "^12.1.0"
+  }
+}

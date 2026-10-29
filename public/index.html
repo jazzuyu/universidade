@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Gestão de matrículas, notas e frequência da Universidade.">
+  <title>Universidade · Secretaria acadêmica</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header><div class="brand"><span class="brand-icon" aria-hidden="true">U</span><div><strong>Universidade</strong><span>Secretaria acadêmica</span></div></div><span class="header-label">Gestão acadêmica</span></header>
+  <main>
+    <div class="intro"><div><p class="eyebrow">PAINEL DA SECRETARIA</p><h1>Acompanhe cada trajetória.</h1><p>Matricule alunos e gerencie notas, frequência e resultados.</p></div><button id="refresh" class="secondary" type="button">Atualizar dados</button></div>
+    <div id="message" role="status" aria-live="polite" hidden></div>
+    <section class="stats" aria-label="Resumo das matrículas">
+      <article><span>Alunos cadastrados</span><strong id="students-count">—</strong></article>
+      <article><span>Vínculos em matérias</span><strong id="enrollments-count">—</strong></article>
+      <article><span>Aprovados</span><strong id="approved-count">—</strong></article>
+      <article><span>Em exame</span><strong id="exam-count">—</strong></article>
+    </section>
+    <div class="forms-grid">
+      <section class="card"><div class="section-title"><span class="step">01</span><div><h2>Matricular aluno</h2><p>Todas as matérias do curso em uma matrícula.</p></div></div>
+        <form id="enroll-form">
+          <label for="student-name">Nome completo</label><input id="student-name" name="NOME" maxlength="50" placeholder="Digite o nome do aluno" autocomplete="name" required>
+          <label for="course">Curso</label><select id="course" name="CURSO" required disabled><option value="">Carregando cursos…</option></select>
+          <p class="hint">Período letivo: <strong id="current-year"></strong>. O cadastro inclui todas as matérias do curso escolhido.</p>
+          <button type="submit">Matricular aluno</button>
+        </form>
+      </section>
+      <section class="card"><div class="section-title"><span class="step">02</span><div><h2>Lançar nota e faltas</h2><p>Selecione uma matéria na tabela ou na lista.</p></div></div>
+        <form id="grade-form">
+          <label for="enrollment">Matrícula / matéria / período</label><select id="enrollment" required disabled><option value="">Carregando matrículas…</option></select>
+          <div class="field-grid"><div><label for="term">Bimestre</label><select id="term" name="BIMESTRE" required><option value="1">1º bimestre</option><option value="2">2º bimestre</option><option value="3">3º bimestre</option><option value="4">4º bimestre</option></select></div><div><label for="grade">Nota</label><input id="grade" name="NOTA" type="number" min="0" max="10" step="0.01" placeholder="0 a 10" required></div><div><label for="absences">Faltas</label><input id="absences" name="FALTA" type="number" min="0" max="2147483647" step="1" placeholder="0" required></div></div>
+          <p class="hint">Lance os bimestres em ordem. O resultado é apurado no 4º bimestre.</p>
+          <button type="submit">Salvar nota e faltas</button>
+        </form>
+      </section>
+    </div>
+    <section class="card records"><div class="records-heading"><div><p class="eyebrow">ACOMPANHAMENTO</p><h2>Matrículas e resultados</h2></div><label class="search-label" for="search">Buscar aluno, curso ou matéria<input id="search" type="search" placeholder="Nome, matrícula ou matéria…"></label></div>
+      <p class="hint">Cada linha corresponde a uma matéria. Selecione “Notas” para preencher o formulário.</p>
+      <div class="table-wrapper"><table><caption class="sr-only">Notas e frequência por matrícula, matéria e período letivo</caption><thead><tr><th>Aluno / matrícula</th><th>Matéria / curso</th><th>Ano</th><th>1º</th><th>2º</th><th>3º</th><th>4º</th><th>Total pontos</th><th>Média</th><th>Faltas</th><th>Frequência</th><th>Exame</th><th>Média final</th><th>Resultado</th><th>Ações</th></tr></thead><tbody id="rows"><tr><td colspan="15" class="empty">Carregando matrículas…</td></tr></tbody></table></div>
+      <div class="legend"><span class="badge approved">Aprovado</span><span class="badge exam">Exame</span><span class="badge failed">Reprovado</span><span class="badge pending">Em andamento</span></div>
+    </section>
+    <footer>Universidade <span>Secretaria acadêmica · Notas e frequência</span></footer>
+  </main>
+  <dialog id="exam-dialog" aria-labelledby="exam-title">
+    <form id="exam-form"><h2 id="exam-title">Lançar nota de exame</h2><p id="exam-context"></p><label for="exam-grade">Nota do exame</label><input id="exam-grade" type="number" min="0" max="10" step="0.01" required><p class="hint">Ao salvar, a procedure recalcula a média final e o resultado.</p><div class="dialog-actions"><button id="cancel-exam" class="secondary" type="button">Cancelar</button><button type="submit">Salvar exame</button></div></form>
+  </dialog>
+</body>
+</html>
